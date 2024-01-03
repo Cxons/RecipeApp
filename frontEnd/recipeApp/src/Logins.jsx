@@ -89,7 +89,7 @@ export default function Login() {
           type="submit"
           onClick={googleSignIn}
         >
-          SIGN IN WITH GOOGLE
+          SIGN IN WITH GOOGLE YOU HEAR?
         </button>
       </form>
     </div>
