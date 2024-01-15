@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { createRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import Modal from "./Modal";
 axios.defaults.baseURL = "http://localhost:3500";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -17,14 +20,25 @@ const readBase64 = (file) => {
   });
 };
 export default function RecipePageUpload() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setTimeout(() => {
+      setCount(2);
+      console.log(count);
+    }, 20000);
+  }, [count]);
   const [inputFile, setInputFile] = useState();
+  const [upload, setUpload] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     ingredients: "",
     preparation: "",
     credit: "",
   });
-
+  const close = () => {
+    setUpload(false);
+  };
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = {
@@ -37,7 +51,11 @@ export default function RecipePageUpload() {
     console.log(body);
     axios
       .post("http://localhost:3500/recipe/upload", body)
-      .then((res) => console.log(res))
+      .then(
+        (res) => setUpload((prev) => !prev),
+        console.log(count),
+        count.current === 2 ? navigate("/recipePage", { replace: false }) : 0
+      )
       .catch((err) => {
         console.log(err);
       });
@@ -59,7 +77,7 @@ export default function RecipePageUpload() {
   return (
     <div className="min-h-[100vh] max-w-[100vw] bg-[#2A3439]">
       <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4 relative" onSubmit={handleSubmit}>
           <label className="text-sm font-semibold" htmlFor="title">
             Title or Name of the Recipe
           </label>
@@ -98,7 +116,7 @@ export default function RecipePageUpload() {
           ></textarea>
 
           <label className="text-sm font-semibold" htmlFor="file">
-            Image or Video
+            Image (png file only)
           </label>
           <input
             type="file"
@@ -122,13 +140,20 @@ export default function RecipePageUpload() {
             className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
           />
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.7 }}
             type="submit"
             className="bg-[#2A3439] text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300"
           >
             Submit Recipe
-          </button>
+          </motion.button>
         </form>
+        {upload && (
+          <Modal handleClose={close}>
+            <div>Successfully Uploaded</div>
+          </Modal>
+        )}
       </div>
     </div>
   );

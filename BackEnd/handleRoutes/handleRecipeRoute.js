@@ -21,8 +21,11 @@ const handleRecipeUploads = asyncHandler(async (req, res) => {
 });
 
 const getRecipe = asyncHandler(async (req, res) => {
-  const recipes = await recipeSchema.find();
-  console.log(Schemas);
-  res.status(200).json({ message: "hey beautiful" });
+  const { n } = req.query;
+  const getRecipes = await recipeSchema.find();
+  const requestedRecipes = getRecipes.splice(0, n);
+  res
+    .status(200)
+    .json({ message: "Request successful", data: requestedRecipes });
 });
 module.exports = { handleRecipeUploads, getRecipe };

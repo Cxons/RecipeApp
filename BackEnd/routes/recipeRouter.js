@@ -6,6 +6,6 @@ const {
 } = require("../handleRoutes/handleRecipeRoute");
 
 recipeRouter.route("/upload").post(handleRecipeUploads);
-recipeRouter.route("/recipes").get(getRecipe);
+recipeRouter.route("/recipes/query").get(getRecipe);
 
 module.exports = recipeRouter;
