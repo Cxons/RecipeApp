@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config();
 const authenticateUser = asyncHandler(async (req, res, next) => {
   const authToken = req.headers.authorization.split(" ")[1];
   if (!authToken) {
-    res.status(403);
+    res.status(404);
     throw new Error("no tokens found");
   }
   jwt.verify(authToken, process.env.ACCESS_TOKEN, (err, user) => {

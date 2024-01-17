@@ -10,18 +10,18 @@ export default function HomePage() {
     <div className="min-h-[500vh] max-w-[100vw]">
       <div className="h-[100vh] w-[100%] bg-white-500 text-black">
         <div className="h-[20vh] w-[100vw] flex justify-between items-center">
-          <div className="ml-[6rem] text-3xl opacity-[2] text-[orange]">
+          <div className="ml-[6rem] text-3xl opacity-[2] text-[orange] italic font-serif">
             X<span className="text-[#ffa600f3]">O</span>N
             <span className="text-[orange]">S</span>
           </div>
           <div className="flex space-x-[4rem] mr-[4rem]">
             {/* <div className="hover:text-red-200">CONTACT US</div> */}
-            <div className="hover:text-orange-500 mt-3 font-semibold">
+            <div className="hover:text-orange-500 mt-3 font-semibold text-[1rem]">
               <Link to="/user/login">SIGN IN</Link>
             </div>
             <motion.div
               whileHover={{ scale: 1.06 }}
-              className=" h-[3rem] w-[6rem] bg-[orange] text-white flex items-center justify-center rounded-[0.8rem]"
+              className=" h-[2.3rem] w-[6rem] bg-[orange] text-white flex items-center justify-center rounded-[0.8rem] text-[1rem] mt-[0.4rem]"
             >
               <Link to="/user/signup">SIGN UP</Link>
             </motion.div>
@@ -29,18 +29,18 @@ export default function HomePage() {
         </div>
         <div className="h-[80vh] w-[100vw] flex flex-col justify-center justify-between">
           <div className="mt-[5rem] ml-[3rem] flex flex-col items-center">
-            <div className="text-6xl font-extrabold mb-[3rem] italic font-serif">
-              Welcome to Xons{" "}
+            <div className="text-6xl font-extrabold mb-[3rem] italic font-serif mt-4">
+              Welcome to{" "}
               <span className="bg-clip-text bg-gradient-to-tr from-amber-300 via-orange-500 to-white text-transparent">
-                Recipe
+                XONS
               </span>{" "}
-              Hub!
+              Recipe Hub!
             </div>
             <div className="text-2xl italic font-serif opacity-[.5] text-">
-              Share and Discover Culinary Creations
+              Share and Discover Culinary Creations.
             </div>
           </div>
-          <div className="mt-[7rem] w-[40rem] italic tracking-wide font-serif">
+          {/* <div className="mt-[7rem] w-[40rem] italic tracking-wide font-serif">
             <div>For Food Enthusiasts, By Food Enthusiasts</div>
             <div>
               Are you ready to showcase your culinary masterpieces or explore a
@@ -54,7 +54,7 @@ export default function HomePage() {
               or a kitchen novice, our app is designed to inspire your culinary
               journey.
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="max-w-[100vw] h-[100vh] flex flex-col justify-center">

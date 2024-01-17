@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "./firebase";
+import loginImg from "../src/assets/images/image14.jpg";
+import { motion } from "framer-motion";
+import googleImg from "../src/assets/images/google.png";
 
 export default function Login() {
   const [posts, setPosts] = useState({
@@ -43,55 +46,67 @@ export default function Login() {
   }
 
   return (
-    <div className="bg-[#2A3439] min-h-[100vh] max-w-[100vw] flex justify-center items-center">
-      <form
-        className="flex flex-col h-[29rem] w-[25rem] bg-white rounded-[0.5rem]"
-        onSubmit={handleSubmit}
-      >
-        <div className="my-[1rem] ml-[2.5rem] mt-[3rem] text-[1.3rem]">
-          SIGN IN
-        </div>
-        <label className="text-left ml-[2.5rem] mt-[1rem]" htmlFor="email">
-          Email
-        </label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={posts.email}
-          onChange={handlePosts}
-          className="border-[2px] ml-[2.5rem] h-[2.4rem] w-[20rem] rounded-[0.2rem]"
-        />
-        <label className="text-left ml-[2.5rem] mt-[1.5rem]" htmlFor="password">
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          value={posts.password}
-          onChange={handlePosts}
-          name="password"
-          className="border-[2px] ml-[2.5rem] h-[2.4rem] w-[20rem] rounded-[0.2rem]"
-        />
-        {err && (
-          <div className="ml-[2.5rem] mt-[0.7rem] text-[.8rem] text-red-700">
-            !!{err}
+    <div className="bg-white min-h-[100vh] max-w-[100vw] flex">
+      <div className="basis-[50%] h-[100vh] overflow-hidden">
+        <img className="w-full h-full" src={loginImg} />
+      </div>
+      <div className="basis-[50%] flex items-center w-[50vw] flex-col">
+        <form
+          className="flex flex-col h-[100%] w-[80%] bg-white ml-[5rem] mt-[2rem] rounded-[0.5rem]"
+          onSubmit={handleSubmit}
+        >
+          <div className="my-[1rem] ml-[2.5rem] mt-[3rem] text-[2rem] italic font-serif bg-clip-text bg-gradient-to-tr from-amber-300 via-orange-500 to-white text-transparent font-bold">
+            XONS
           </div>
-        )}
-        <button
-          className="border-[2px] ml-[2.5rem] h-[2.4rem] w-[20rem] rounded-[0.5rem] mt-[2.5rem] bg-red-400 hover:bg-red-500 text-white"
-          type="submit"
-        >
-          SIGN IN
-        </button>
-        <button
-          className="border-[2px] ml-[2.5rem] h-[2.4rem] w-[20rem] rounded-[0.5rem] mt-[2.34rem] bg-red-400 hover:bg-red-500 text-white"
-          type="submit"
-          onClick={googleSignIn}
-        >
-          SIGN IN WITH GOOGLE
-        </button>
-      </form>
+          <label className="text-left ml-[2.5rem] mt-[1rem]" htmlFor="email">
+            Email
+          </label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={posts.email}
+            onChange={handlePosts}
+            className="border-b border-gray-500 py-2 px-3 text-black-500 leading-tight focus:outline-none focus:border-yellow-900 w-[20rem] ml-[2.5rem]"
+          />
+          <label
+            className="text-left ml-[2.5rem] mt-[1.5rem]"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={posts.password}
+            onChange={handlePosts}
+            name="password"
+            className="border-b border-gray-500 py-2 px-3 text-yellow-300 leading-tight focus:outline-none focus:border-yellow-900 w-[20rem] ml-[2.5rem]"
+          />
+          {err && (
+            <div className="ml-[2.5rem] mt-[0.7rem] text-[.8rem] text-red-700">
+              !!{err}
+            </div>
+          )}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="border-[2px] ml-[6rem] h-[2.4rem] w-[10rem] rounded-[1rem] mt-[2.5rem]  bg-orange-500 opacity-[.9] font-semibold text-white"
+            type="submit"
+          >
+            SIGN IN
+          </motion.button>
+          <div className="border-b mt-[3rem] ml-[6rem] border-gray-500 py-2 px-3 text-black-500 leading-tight w-[10rem]"></div>
+
+          <div className="flex mt-[2rem] ml-[6rem] space-x-2">
+            <div className="h-[1.2rem] w-[1.2rem] mt-[5px]">
+              <img src={googleImg} alt="" />
+            </div>
+            <button className="text-black" type="submit" onClick={googleSignIn}>
+              Sign in with Google
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
