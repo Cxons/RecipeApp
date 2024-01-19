@@ -10,12 +10,17 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 const RecipePage = () => {
   const [recipes, setRecipes] = useState([]);
   console.log(image15);
-
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3500/users/current")
+  //     .then((res) => console.log("test", res))
+  //     .catch((err) => console.log(err));
+  // }, []);
   useEffect(() => {
-    // Fetch recipes from the server or your database
-    // For demonstration purposes, I'm using a dummy data array
     axios
-      .get("http://localhost:3500/recipe/recipes/query?n=30")
+      .get("http://localhost:3500/recipe/recipes/query?n=30", {
+        withCredentials: true,
+      })
       .then((res) => setRecipes(res.data.data))
       .catch((err) => console.log(err));
   }, []);
@@ -46,7 +51,7 @@ const RecipePage = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 italic font-serif">
         {recipes.map((recipe) => {
-          console.log(recipe);
+          // console.log(recipe);
           return (
             <div key={recipe.id} className="bg-white p-6 rounded-md shadow-md">
               <img

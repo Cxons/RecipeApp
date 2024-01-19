@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "./firebase";
@@ -16,6 +16,7 @@ export default function Login() {
   const [clickState, handleClickState] = useState(!false);
   const [res, setRes] = useState(false);
   const [err, setErr] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   function handlePosts(e) {
     e.preventDefault();
     setPosts({
@@ -32,22 +33,23 @@ export default function Login() {
     e.preventDefault();
     handleClickState((prev) => !prev);
     axios
-      .post("http://localhost:3500/users/login", posts)
-      .then((res) => {
-        if (res) {
-          console.log("about to work", res.status);
-          navigate("/recipePage", { replace: true });
-        }
+      .post("http://localhost:3500/users/login", posts, {
+        withCredentials: true,
+      })
+      .then(async (res) => {
+        console.log("about to work", res.data.name);
+        setIsLoggedIn(true);
+        navigate("/recipePage", { replace: true });
       })
       .catch((err) => {
         console.log(err);
         setErr(err.response.data.message);
       });
   }
-
   return (
     <div className="bg-white min-h-[100vh] max-w-[100vw] flex">
-      <div className="basis-[50%] h-[100vh] overflow-hidden">
+      <div className="hidden"></div>
+      <div className="basis-[50%] h-[100vh] w-[50vw] overflow-hidden">
         <img className="w-full h-full" src={loginImg} />
       </div>
       <div className="basis-[50%] flex items-center w-[50vw] flex-col">

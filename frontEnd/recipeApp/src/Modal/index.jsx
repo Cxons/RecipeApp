@@ -11,7 +11,7 @@ const dropIn = {
     y: "0vh",
     opacity: 1,
     transiton: {
-      duration: 0.1,
+      duration: 9,
       type: "spring",
       dampness: 25,
       stiffness: 500,

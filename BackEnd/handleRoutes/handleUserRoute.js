@@ -3,7 +3,7 @@ const userSchema = require("../Models/userModel");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt-nodejs");
 const jwt = require("jsonwebtoken");
-
+let state = false;
 const handleRegister = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
@@ -33,7 +33,6 @@ const handleRegister = asyncHandler(async (req, res) => {
 });
 
 const handleLogin = asyncHandler(async (req, res) => {
-  console.log(req);
   const { email, password } = req.body;
   if (!email || !password) {
     res.status(400);
@@ -55,14 +54,23 @@ const handleLogin = asyncHandler(async (req, res) => {
   //creating the body to be put on the jwt sign
   const jwtBody = { name: checkEmail.name, email: singleEmail };
   const accessToken = jwt.sign(jwtBody, process.env.ACCESS_TOKEN);
-  res.status(200).json({
+  res.cookie("accessToken", accessToken).status(201);
+  state = true;
+  res.json({
     message: "User signed in successfully",
     accessToken: accessToken,
     name: checkEmail.name,
   });
 });
-const handleCurrentUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ user: req.user });
+const handleCurrent = asyncHandler(async (req, res) => {
+  const { accessToken } = req.cookies;
+  if (!accessToken) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+  res.status(200).json({
+    success: true,
+  });
 });
 
-module.exports = { handleRegister, handleLogin, handleCurrentUser };
+module.exports = { handleRegister, handleLogin, handleCurrent };

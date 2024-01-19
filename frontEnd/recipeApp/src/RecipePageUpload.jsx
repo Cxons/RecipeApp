@@ -21,12 +21,6 @@ const readBase64 = (file) => {
 };
 export default function RecipePageUpload() {
   const [count, setCount] = useState(0);
-  useEffect(() => {
-    setTimeout(() => {
-      setCount(2);
-      console.log(count);
-    }, 20000);
-  }, [count]);
   const [inputFile, setInputFile] = useState();
   const [upload, setUpload] = useState(false);
   const [formData, setFormData] = useState({

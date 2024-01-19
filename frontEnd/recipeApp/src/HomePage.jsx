@@ -3,7 +3,25 @@ import React from "react";
 import Picture3 from "./assets/images/Picture3.jpg";
 import { Link } from "react-router-dom";
 import imgArr from "./assets/imageArray/imgArr";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, animate } from "framer-motion";
+
+const config = {
+  initial: {
+    scale: 3,
+    y: 100,
+    opacity: 0,
+  },
+  animate: {
+    scale: 5,
+    y: -100,
+    opacity: 1,
+  },
+  exit: {
+    display: "hidden",
+    opacity: 0,
+    y: 0,
+  },
+};
 
 export default function HomePage() {
   return (
@@ -40,21 +58,43 @@ export default function HomePage() {
               Share and Discover Culinary Creations.
             </div>
           </div>
-          {/* <div className="mt-[7rem] w-[40rem] italic tracking-wide font-serif">
-            <div>For Food Enthusiasts, By Food Enthusiasts</div>
-            <div>
-              Are you ready to showcase your culinary masterpieces or explore a
-              treasure trove of delicious recipes from around the world? Xons
-              Recipe Hub is your culinary community where flavors meet
-              creativity.
-            </div>
-            <div className="mt-[2rem]">
-              Unlock a world of flavors with Xons Recipe, your go-to destination
-              for delicious and diverse recipes. Whether you are a seasoned chef
-              or a kitchen novice, our app is designed to inspire your culinary
-              journey.
-            </div>
-          </div> */}
+          <AnimatePresence>
+            <motion.div
+              initial={{
+                y: 100,
+                opacity: 0,
+              }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                transition: {
+                  duration: 0.1,
+                  type: "spring",
+                  damping: 50,
+                  stiffness: 500,
+                },
+              }}
+              exit={{
+                y: 100,
+                opacity: 1,
+              }}
+              className="mt-[-3rem] w-[40rem] italic tracking-wide font-serif"
+            >
+              <div>For Food Enthusiasts, By Food Enthusiasts</div>
+              <div>
+                Are you ready to showcase your culinary masterpieces or explore
+                a treasure trove of delicious recipes from around the world?
+                Xons Recipe Hub is your culinary community where flavors meet
+                creativity.
+              </div>
+              <div className="mt-[2rem]">
+                Unlock a world of flavors with Xons Recipe, your go-to
+                destination for delicious and diverse recipes. Whether you are a
+                seasoned chef or a kitchen novice, our app is designed to
+                inspire your culinary journey.
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
       <div className="max-w-[100vw] h-[100vh] flex flex-col justify-center">
