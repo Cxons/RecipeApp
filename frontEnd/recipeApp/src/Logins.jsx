@@ -85,25 +85,48 @@ export default function Login() {
             name="password"
             className="border-b border-gray-500 py-2 px-3 text-yellow-300 leading-tight focus:outline-none focus:border-yellow-900 w-[20rem] ml-[2.5rem]"
           />
+          <div
+            className="text-right mt-3 mr-8 opacity-[.7] hover:opacity-[.9] cursor-pointer hover:text-orange-400 text-sm"
+            onClick={() => {
+              return navigate("/resetPassword", { replace: false });
+            }}
+          >
+            Forget Password?
+          </div>
           {err && (
-            <div className="ml-[2.5rem] mt-[0.7rem] text-[.8rem] text-red-700">
+            <div className="ml-[2.5rem] mt-[-2rem] text-[.8rem] text-red-700">
               !!{err}
             </div>
           )}
           <motion.button
             whileHover={{ scale: 1.05 }}
-            className="border-[2px] ml-[6rem] h-[2.4rem] w-[10rem] rounded-[1rem] mt-[2.5rem]  bg-orange-500 opacity-[.9] font-semibold text-white"
+            className="border-[2px] ml-[6rem] h-[2.4rem] w-[10rem] rounded-[1rem] mt-[2.2rem]  cursor-pointer  bg-orange-500 opacity-[.9] font-semibold text-white"
             type="submit"
           >
-            SIGN IN
+            LOGIN
           </motion.button>
-          <div className="border-b mt-[3rem] ml-[6rem] border-gray-500 py-2 px-3 text-black-500 leading-tight w-[10rem]"></div>
+          <div className="mt-[1.8rem] text-center ml-[-5rem] text-black opacity-[.7]">
+            Don't have an account?{" "}
+            <button
+              className="text-orange-400 hover:text-orange-600"
+              onClick={() => {
+                return navigate("/user/signup", { replace: false });
+              }}
+            >
+              Sign Up
+            </button>
+          </div>
+          <div className="border-b mt-[1.3rem] ml-[6rem] border-gray-500 py-2 px-3 text-black-500 leading-tight w-[10rem]"></div>
 
-          <div className="flex mt-[2rem] ml-[6rem] space-x-2">
+          <div className="flex mt-[1.8rem] ml-[6rem] space-x-2">
             <div className="h-[1.2rem] w-[1.2rem] mt-[5px]">
               <img src={googleImg} alt="" />
             </div>
-            <button className="text-black" type="submit" onClick={googleSignIn}>
+            <button
+              className="text-black bg-clip-text hover:bg-red-400"
+              type="submit"
+              onClick={googleSignIn}
+            >
               Sign in with Google
             </button>
           </div>

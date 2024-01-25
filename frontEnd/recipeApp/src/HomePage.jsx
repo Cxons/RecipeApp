@@ -26,7 +26,7 @@ const config = {
 export default function HomePage() {
   return (
     <div className="min-h-[500vh] max-w-[100vw]">
-      <div className="h-[100vh] w-[100%] bg-white-500 text-black">
+      <div className="h-[120vh] w-[100%] bg-white-500 text-black">
         <div className="h-[20vh] w-[100vw] flex justify-between items-center">
           <div className="ml-[6rem] text-3xl opacity-[2] text-[orange] italic font-serif">
             X<span className="text-[#ffa600f3]">O</span>N
@@ -58,47 +58,24 @@ export default function HomePage() {
               Share and Discover Culinary Creations.
             </div>
           </div>
-          <AnimatePresence>
-            <motion.div
-              initial={{
-                y: 100,
-                opacity: 0,
-              }}
-              animate={{
-                y: 0,
-                opacity: 1,
-                transition: {
-                  duration: 0.1,
-                  type: "spring",
-                  damping: 50,
-                  stiffness: 500,
-                },
-              }}
-              exit={{
-                y: 100,
-                opacity: 1,
-              }}
-              className="mt-[-3rem] w-[40rem] italic tracking-wide font-serif"
-            >
-              <div>For Food Enthusiasts, By Food Enthusiasts</div>
-              <div>
-                Are you ready to showcase your culinary masterpieces or explore
-                a treasure trove of delicious recipes from around the world?
-                Xons Recipe Hub is your culinary community where flavors meet
-                creativity.
-              </div>
-              <div className="mt-[2rem]">
-                Unlock a world of flavors with Xons Recipe, your go-to
-                destination for delicious and diverse recipes. Whether you are a
-                seasoned chef or a kitchen novice, our app is designed to
-                inspire your culinary journey.
-              </div>
-            </motion.div>
-          </AnimatePresence>
         </div>
       </div>
       <div className="max-w-[100vw] h-[100vh] flex flex-col justify-center">
-        <div className="mb-[3rem] text-3xl italic text-[#2A3439] text-center mt-[5rem] "></div>
+        <div className="max-w-screen flex h-auto justify-between">
+          <div className="w-[30rem] ml-[3rem] tracking-[.15rem] font-serif  ">
+            For food enthusiasts, By food enthusiasts Are you ready to showcase
+            your culinary masterpieces or explore a treasure trove of delicious
+            recipes from around the world? Xons Recipe Hub is your culinary
+            community where flavors meet creativity.
+          </div>
+          <div className="w-[30rem] mr-[3rem] tracking-[.15rem] font-serif">
+            Unlock a world of flavors with Xons Recipe, your go-to destination
+            for delicious and diverse recipes. Whether you are a seasoned chef
+            or a kitchen novice, our app is designed to inspire your culinary
+            journey.
+          </div>
+        </div>
+        <div className="mb-[3rem] text-3xl max-w-[100vw] h-[100vh] bg-blue-500 italic text-[#2A3439] text-center mt-[5rem] "></div>
         <div className="w-[100vw] flex justify-between">
           <div className="bg-gray-700 ml-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
             <div className="italic font-serif text-2xl text-gray-300 mb-[2rem]">
@@ -140,14 +117,6 @@ export default function HomePage() {
               tips, ask questions, and celebrate the joy of cooking together.
             </div>
           </div>
-        </div>
-      </div>
-      <div className="mt-[8rem] h-[100vh] w-[100vw] bg-red-200 flex items-center justify-center">
-        <div
-          className="border-[2px] ml-[2.5rem] h-[2.4rem] w-[20rem] rounded-[0.5rem] mt-[1.5rem] bg-red-400 hover:bg-red-500 text-white"
-          data-onsuccess="onSignIn"
-        >
-          SIGN IN WITH GOOGLE
         </div>
       </div>
     </div>

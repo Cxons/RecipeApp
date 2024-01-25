@@ -19,7 +19,7 @@ app.use("/users", UserRouter);
 // app.use(authenticateUser);
 app.use("/recipe", recipeRouter);
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Adjust this to your frontend URL in production
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"

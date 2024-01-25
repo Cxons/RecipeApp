@@ -48,6 +48,23 @@ const RecipePage = () => {
         >
           SIGN OUT
         </div>
+        <div
+          onClick={() => {
+            axios
+              .get("http://localhost:3500/users/logout", {
+                withCredentials: true,
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  navigate("/", { replace: true });
+                }
+              })
+              .catch((err) => console.log(err));
+          }}
+          className="bg-[#2A3439] w-[7rem] h-[3rem] text-white px-4 py-2 rounded-md flex items-center justify-center hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300"
+        >
+          SIGN OUT NORMALLY
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 italic font-serif">
         {recipes.map((recipe) => {

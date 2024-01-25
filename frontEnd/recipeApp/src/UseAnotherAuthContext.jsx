@@ -13,9 +13,9 @@ function UseAnotherAuthContext({ children }) {
   useEffect(() => {
     axios
       .get("http://localhost:3500/users/current", { withCredentials: true })
-      .then(({ response }) => {
-        console.log(response);
-        if (response.status === 200) {
+      .then((res) => {
+        console.log("this is my response", res);
+        if (res.status === 200) {
           setIsLoggedIn({
             loading: false,
             loggedIn: true,
@@ -23,7 +23,7 @@ function UseAnotherAuthContext({ children }) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("my error", err);
       });
   }, []);
   return (

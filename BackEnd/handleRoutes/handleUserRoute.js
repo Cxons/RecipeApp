@@ -3,7 +3,7 @@ const userSchema = require("../Models/userModel");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt-nodejs");
 const jwt = require("jsonwebtoken");
-let state = false;
+
 const handleRegister = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
@@ -22,6 +22,7 @@ const handleRegister = asyncHandler(async (req, res) => {
     name: name,
     email: email,
     password: hashedPassword,
+    verificationCode: "null",
   });
   res.status(201).json({
     message: "Successfully signed up",
@@ -55,7 +56,6 @@ const handleLogin = asyncHandler(async (req, res) => {
   const jwtBody = { name: checkEmail.name, email: singleEmail };
   const accessToken = jwt.sign(jwtBody, process.env.ACCESS_TOKEN);
   res.cookie("accessToken", accessToken).status(201);
-  state = true;
   res.json({
     message: "User signed in successfully",
     accessToken: accessToken,
@@ -73,4 +73,9 @@ const handleCurrent = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { handleRegister, handleLogin, handleCurrent };
+const handleLogOUt = asyncHandler(async (req, res) => {
+  res.clearCookie("accessToken");
+  res.status(200).json({ message: "User logged out" });
+});
+
+module.exports = { handleRegister, handleLogin, handleCurrent, handleLogOUt };
