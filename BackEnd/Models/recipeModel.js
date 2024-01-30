@@ -20,6 +20,10 @@ const recipeSchema = mongoose.Schema(
       type: String,
       required: [true, "C'mon now don't be shy. Who made this wonderful food"],
     },
+    country: {
+      type: String,
+      required: [true, "Please input the region of this amazing meal"],
+    },
   },
   { timestamp: true }
 );

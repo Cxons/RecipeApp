@@ -6,8 +6,14 @@ import googleImg from "../src/assets/images/google.png";
 import loginImg from "./assets/images/image19.jpg";
 import { motion } from "framer-motion";
 import { signInWithGoogle } from "./firebase";
+import { z } from "zod";
 
 export default function Logins() {
+  // const schema = z.object({
+  //   name: z.string.min(2).max(30),
+  //   email: z.email(),
+  //   password: z.
+  // });
   const [posts, setPosts] = useState({
     name: "",
     email: "",
@@ -68,7 +74,7 @@ export default function Logins() {
             Email
           </label>
           <input
-            type="text"
+            type="email"
             name="email"
             id="email"
             value={posts.email}

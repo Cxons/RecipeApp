@@ -25,8 +25,8 @@ const config = {
 
 export default function HomePage() {
   return (
-    <div className="min-h-[500vh] max-w-[100vw]">
-      <div className="h-[120vh] w-[100%] bg-white-500 text-black">
+    <div className="min-h-[500vh] max-w-[100vw] font-serif relative">
+      <div className="h-[100%] w-[100%] bg-white-500 text-black">
         <div className="h-[20vh] w-[100vw] flex justify-between items-center">
           <div className="ml-[6rem] text-3xl opacity-[2] text-[orange] italic font-serif">
             X<span className="text-[#ffa600f3]">O</span>N
@@ -77,7 +77,7 @@ export default function HomePage() {
         </div>
         <div className="mb-[3rem] text-3xl max-w-[100vw] h-[100vh] bg-blue-500 italic text-[#2A3439] text-center mt-[5rem] "></div>
         <div className="w-[100vw] flex justify-between">
-          <div className="bg-gray-700 ml-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
+          <div className="bg-orange-300 ml-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
             <div className="italic font-serif text-2xl text-gray-300 mb-[2rem]">
               Diverse Recipes
             </div>
@@ -86,7 +86,7 @@ export default function HomePage() {
               classics to modern twists, there is something for every palate.
             </div>
           </div>
-          <div className="bg-gray-700 mr-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
+          <div className="bg-orange-300 mr-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
             <div className="italic font-serif text-2xl text-gray-300 mb-[2rem]">
               User-Curated Collections
             </div>
@@ -98,7 +98,7 @@ export default function HomePage() {
         </div>
         <div className="mb-[3rem] text-3xl ml-[5rem] italic text-[#2A3439] text-center mr-[3rem] mt-[2.5rem]"></div>
         <div className="w-[100vw] flex justify-between">
-          <div className="bg-gray-700 ml-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
+          <div className="bg-orange-300 ml-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
             <div className="italic font-serif text-2xl text-gray-300 mb-[2rem]">
               Upload Your Recipes
             </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
               instructions.
             </div>
           </div>
-          <div className="bg-gray-700 mr-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
+          <div className="bg-orange-300 mr-[2.5rem] flex flex-col items-center justify-center p-6 rounded-lg shadow-md text-gray-200 text-center transition duration-300 hover:bg-gray-800 hover:shadow-lg w-[45%] h-[15rem]">
             <div className="italic font-serif text-2xl text-gray-300 mb-[2rem]">
               Connect with Foodies
             </div>

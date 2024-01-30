@@ -7,8 +7,21 @@ import { signInWithGoogle } from "./firebase";
 import loginImg from "../src/assets/images/image14.jpg";
 import { motion } from "framer-motion";
 import googleImg from "../src/assets/images/google.png";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
+  const schema = z.object({
+    email: z.string().email(),
+    password: z.string().min(5).max(30),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm({ resolver: zodResolver(schema) });
   const [posts, setPosts] = useState({
     email: "",
     password: "",
@@ -29,8 +42,8 @@ export default function Login() {
   function googleSignIn() {
     signInWithGoogle(navigate);
   }
-  function handleSubmit(e) {
-    e.preventDefault();
+  function controlSubmit(data) {
+    console.log(data);
     handleClickState((prev) => !prev);
     axios
       .post("http://localhost:3500/users/login", posts, {
@@ -55,7 +68,7 @@ export default function Login() {
       <div className="basis-[50%] flex items-center w-[50vw] flex-col">
         <form
           className="flex flex-col h-[100%] w-[80%] bg-white ml-[5rem] mt-[2rem] rounded-[0.5rem]"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(controlSubmit)}
         >
           <div className="my-[1rem] ml-[2.5rem] mt-[3rem] text-[2rem] italic font-serif bg-clip-text bg-gradient-to-tr from-amber-300 via-orange-500 to-white text-transparent font-bold">
             XONS
@@ -64,13 +77,20 @@ export default function Login() {
             Email
           </label>
           <input
-            type="text"
+            {...register("email")}
+            type="email"
             name="email"
             id="email"
             value={posts.email}
             onChange={handlePosts}
             className="border-b border-gray-500 py-2 px-3 text-black-500 leading-tight focus:outline-none focus:border-yellow-900 w-[20rem] ml-[2.5rem]"
           />
+          {errors.email && (
+            <span className="text-red-700 text-[.8rem]">
+              {errors.email.message}
+            </span>
+          )}
+
           <label
             className="text-left ml-[2.5rem] mt-[1.5rem]"
             htmlFor="password"
@@ -78,6 +98,7 @@ export default function Login() {
             Password
           </label>
           <input
+            {...register("password")}
             type="password"
             id="password"
             value={posts.password}
@@ -85,6 +106,11 @@ export default function Login() {
             name="password"
             className="border-b border-gray-500 py-2 px-3 text-yellow-300 leading-tight focus:outline-none focus:border-yellow-900 w-[20rem] ml-[2.5rem]"
           />
+          {errors.password && (
+            <span className="text-red-700 text-[.8rem]">
+              {errors.password.message}
+            </span>
+          )}
           <div
             className="text-right mt-3 mr-8 opacity-[.7] hover:opacity-[.9] cursor-pointer hover:text-orange-400 text-sm"
             onClick={() => {
@@ -117,7 +143,6 @@ export default function Login() {
             </button>
           </div>
           <div className="border-b mt-[1.3rem] ml-[6rem] border-gray-500 py-2 px-3 text-black-500 leading-tight w-[10rem]"></div>
-
           <div className="flex mt-[1.8rem] ml-[6rem] space-x-2">
             <div className="h-[1.2rem] w-[1.2rem] mt-[5px]">
               <img src={googleImg} alt="" />

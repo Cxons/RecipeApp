@@ -28,6 +28,7 @@ export default function RecipePageUpload() {
     ingredients: "",
     preparation: "",
     credit: "",
+    country: "",
   });
   const close = () => {
     setUpload(false);
@@ -41,6 +42,7 @@ export default function RecipePageUpload() {
       ingredients: formData.ingredients,
       preparation: formData.preparation,
       credit: formData.credit,
+      country: formData.country,
     };
     console.log(body);
     axios
@@ -121,7 +123,17 @@ export default function RecipePageUpload() {
             required
             className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
           />
-
+          <label className="text-sm font-semibold" htmlFor="credit">
+            Country of Dish
+          </label>
+          <input
+            type="text"
+            id="credit"
+            name="credit"
+            onChange={handleChange}
+            value={formData.country}
+            className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+          />
           <label className="text-sm font-semibold" htmlFor="credit">
             Credit/Your Brand Name
           </label>

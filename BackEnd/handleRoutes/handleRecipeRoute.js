@@ -2,8 +2,8 @@ const asyncHandler = require("express-async-handler");
 const recipeSchema = require("../Models/recipeModel");
 
 const handleRecipeUploads = asyncHandler(async (req, res) => {
-  const { title, imgUrl, ingredients, preparation, credit } = req.body;
-  if (!title || !ingredients || !preparation || !credit) {
+  const { title, imgUrl, ingredients, preparation, credit, country } = req.body;
+  if (!title || !ingredients || !preparation || !credit || country) {
     res.status(400);
     throw new Error("Only file field is optional");
   }
@@ -14,6 +14,7 @@ const handleRecipeUploads = asyncHandler(async (req, res) => {
     ingredients: ingredients,
     preparation: preparation,
     credit: credit,
+    country: country,
   });
   // console.log(newRecipe);
 
