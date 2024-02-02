@@ -79,7 +79,9 @@ const RecipePage = () => {
               <div onClick={handleUpload} className="cursor-pointer">
                 Upload
               </div>
-              <div className="cursor-pointer">Create Schedule</div>
+              <div className="cursor-pointer">
+                <Link to="/createSchedule">Create Schedule</Link>
+              </div>
             </div>
             <div
               onClick={normalSignOut}

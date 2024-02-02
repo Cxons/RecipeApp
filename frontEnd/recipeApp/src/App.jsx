@@ -10,6 +10,7 @@ import { UseAuthContext } from "./UseAnotherAuthContext";
 import ForgetPassword from "./ForgetPassword";
 import InputCode from "./InputCode";
 import NewPassword from "./NewPassword";
+import CreateSchedule from "./CreateSchedule";
 
 export default function App() {
   const authContext = useContext(UseAuthContext);
@@ -31,6 +32,10 @@ export default function App() {
         <Route
           path="/recipePage/upload"
           element={authContext.loggedIn ? <RecipePageUpload /> : "loading"}
+        />
+        <Route
+          path="/createSchedule"
+          element={authContext.loggedIn ? <CreateSchedule /> : "loading"}
         />
       </Routes>
     </>
