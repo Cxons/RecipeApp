@@ -129,7 +129,7 @@ export default function RecipePageUpload() {
           <input
             type="text"
             id="credit"
-            name="credit"
+            name="country"
             onChange={handleChange}
             value={formData.country}
             className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"

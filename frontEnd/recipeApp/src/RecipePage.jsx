@@ -9,15 +9,10 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const RecipePage = () => {
   const [recipes, setRecipes] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3500/users/current")
-  //     .then((res) => console.log("test", res))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  const [searchResult, setSearchResult] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3500/recipe/recipes/query?n=1", {
+      .get("http://localhost:3500/recipe/recipes/query?n=7", {
         withCredentials: true,
       })
       .then((res) => setRecipes(res.data.data))
@@ -43,7 +38,25 @@ const RecipePage = () => {
   function handleUpload() {
     navigate("/recipePage/upload", { replace: false });
   }
-
+  function handleSearchChange(e) {
+    e.preventDefault();
+    if (!e.target.value) {
+      setSearchResult("");
+    }
+    if (e.target.value) {
+      setTimeout(() => {
+        axios
+          .get(
+            `http://localhost:3500/recipe/recipes/filterRecipes?similar=${e.target.value}`,
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => setSearchResult(res.data.data))
+          .catch((err) => console.log(err));
+      }, 1000);
+    }
+  }
   return (
     <div className="container">
       <div className="max-w-[100vw] max-h-[110vh]">
@@ -75,7 +88,7 @@ const RecipePage = () => {
               Sign Out
             </div>
           </div>
-          <div className="text-[3.7rem]  text-white whitespace-wrap text-pretty w-[100%] flex flex-row-reverse text-orange-800 font-serif">
+          <div className="text-[3.7rem]   whitespace-wrap text-pretty w-[100%] flex flex-row-reverse text-orange-800 font-serif">
             <div className="w-[40rem] ml-[49rem] leading-[6rem] text-orange-500">
               Discover Amazing Recipes
             </div>
@@ -85,11 +98,20 @@ const RecipePage = () => {
               <input
                 type="text"
                 placeholder="Enter Recipe"
+                onChange={handleSearchChange}
                 className="w-[33rem] h-[2.6rem] rounded-md text-center focus:outline-none text-[1.2rem] bg-white z-50"
               />
               <button className="text-white ml-[3rem] h-[3rem] w-[6rem] bg-orange-500 rounded-md ">
                 Search
               </button>
+              {searchResult &&
+                searchResult.map((item) => {
+                  return (
+                    <div className="bg-orange-500 text-3xl " key={1}>
+                      {item.title}
+                    </div>
+                  );
+                })}
             </form>
           </div>
         </div>
@@ -97,33 +119,32 @@ const RecipePage = () => {
       <div className="h-[30vh] w-[98.4vw] mt-[2rem]  text-center text-4xl font-serif text-orange-600">
         TOP RECIPES
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 italic font-serif">
+      <div className="grid grid-cols-1 mx-auto w-full md:grid-cols-2 lg:grid-cols-2 gap-6 gap-y-[9rem] italic font-serif">
         {recipes.map((recipe) => {
           // console.log(recipe);
           return (
             <div
-              key={recipe.id}
-              className="bg-white  p-6 rounded-md shadow-md w-[45vw] h-[50rem] mt-[-3rem] border-orange-500 border-[1rem] border-spacing-36 "
+              key={1}
+              className="bg-white rounded-md justify-center ml-[4.5rem] shadow-md w-[40vw] h-[20rem] mt-[-5rem] border-orange-500 border-[.3rem] border-spacing-36 flex "
             >
               <img
                 src={recipe.media}
                 alt={recipe.title}
-                className="w-full h-[10rem] object-cover mb-4 rounded-md"
+                className="w-[9rem] h-[9rem] object-cover mb-4 rounded-md"
               />
-
-              <h2 className="text-xl font-semibold mb-2 text-orange-500">
-                {recipe.title}
-              </h2>
-              <p className="text-gray-600 mb-4 text-orange-500">
-                <span className="italic font-serif">{"Ingredients\n"}</span>:
-                {recipe.ingredients}
-              </p>
-
-              <p className="text-gray-700 mb-4">
-                Preparation:{recipe.preparation}
-              </p>
-
-              <p className="text-gray-500">Credit: {recipe.credit}</p>
+              <div className="ml-[1rem]">
+                <h2 className="font-semibold mb-2 text-orange-500 text-4xl">
+                  {recipe.title}
+                </h2>
+                <p className=" mb-4 text-orange-500">
+                  <span className="italic font-serif">{"Ingredients\n"}</span>:
+                  {recipe.ingredients}
+                </p>
+                <p className="text-gray-700 mb-4 line-clamp-1">
+                  Preparation:{recipe.preparation}
+                </p>
+                <p className="text-gray-500">Credit: {recipe.credit}</p>
+              </div>
             </div>
           );
         })}
