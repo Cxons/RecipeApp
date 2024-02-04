@@ -24,6 +24,7 @@ const recipeSchema = mongoose.Schema(
       type: String,
       required: [true, "Please input the region of this amazing meal"],
     },
+    
   },
   { timestamp: true }
 );

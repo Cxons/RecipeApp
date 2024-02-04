@@ -6,12 +6,30 @@ import { addMonths, isSameMonth } from "date-fns";
 
 export default function CreateSchedule() {
   const today = new Date();
-  const nextmonth = addMonths(today, 1);
-  const [month, setMonth] = useState(today);
-  const footer = <button disabled={isSameMonth(today, month)}></button>;
+  const nextMonth = addMonths(today, 1);
+  const [month, setMonth] = useState(nextMonth);
+
+  const check = isSameMonth(today, month);
+  console.log("the check", check);
+
+  const footer = (
+    <button
+      disabled={isSameMonth(today, month)}
+      onClick={() => setMonth(today)}
+    >
+      Go to Today
+    </button>
+  );
+
   return (
-    <div>
-      <DayPicker month={month} onMonthChange={setMonth} footer={footer} />
-    </div>
+    <DayPicker
+      captionLayout="dropdown-buttons"
+      month={month}
+      onMonthChange={setMonth}
+      footer={footer}
+      fromYear={2019}
+      toYear={2025}
+      showOutsideDays
+    />
   );
 }

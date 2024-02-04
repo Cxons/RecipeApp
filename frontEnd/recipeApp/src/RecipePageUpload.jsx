@@ -71,11 +71,19 @@ export default function RecipePageUpload() {
   };
 
   return (
-    <div className="min-h-[100vh] max-w-[100vw] bg-[#2A3439]">
-      <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
-        <form className="space-y-4 relative" onSubmit={handleSubmit}>
-          <label className="text-sm font-semibold" htmlFor="title">
-            Title or Name of the Recipe
+    <div className="min-h-[100vh] max-w-[100vw] bg-white flex">
+      <div className="bg-orange-500 w-1/4 h-[150vh]"></div>
+      <form
+        className="space-y-10 relative w-3/4 ml-[5rem] p-4"
+        onSubmit={handleSubmit}
+      >
+        <div className="text-[2rem] mb-[3rem] font-serif">SUBMIT RECIPE</div>
+        <div className="flex space-x-[.01rem]">
+          <label
+            className="w-[8rem] font-medium font-serif text-[1.2rem]"
+            htmlFor="title"
+          >
+            Recipe Title
           </label>
           <input
             type="text"
@@ -83,12 +91,17 @@ export default function RecipePageUpload() {
             name="title"
             value={formData.title}
             onChange={handleChange}
+            placeholder="Enter recipe title"
             // required
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+            className="w-[40rem] h-[2.3rem] text-center shadow-sm p-2 border rounded-md focus:outline-none focus:border-green-500"
           />
-
-          <label className="text-sm font-semibold" htmlFor="ingredients">
-            Ingredients Required
+        </div>
+        <div className="flex space-x-[1rem] items-center">
+          <label
+            className=" w-[8rem] font-medium text-[1.2rem] font-serif"
+            htmlFor="ingredients"
+          >
+            Ingredients
           </label>
           <textarea
             id="ingredients"
@@ -96,10 +109,14 @@ export default function RecipePageUpload() {
             onChange={handleChange}
             required
             value={formData.ingredients}
-            className="w-full p-2 h-[8rem] border rounded-md focus:outline-none focus:border-green-500"
+            className="w-full p-2 h-[8rem] shadow-sm border rounded-md focus:outline-none focus:border-green-500"
           ></textarea>
-
-          <label className="text-sm font-semibold" htmlFor="preparation">
+        </div>
+        <div className="flex space-x-[1rem] items-center">
+          <label
+            className="text-[1.2rem] font-medium font-serif"
+            htmlFor="preparation"
+          >
             Preparation
           </label>
           <textarea
@@ -108,10 +125,14 @@ export default function RecipePageUpload() {
             onChange={handleChange}
             required
             value={formData.preparation}
-            className="w-full p-2 h-[8rem] border rounded-md resize-y focus:outline-none focus:border-green-500"
+            className="w-full p-2 h-[8rem] shadow-sm border rounded-md resize-y focus:outline-none focus:border-green-500"
           ></textarea>
-
-          <label className="text-sm font-semibold" htmlFor="file">
+        </div>
+        <div className="flex space-x-[-1rem]">
+          <label
+            className=" w-[10rem] text-[1rem] font-medium font-serif"
+            htmlFor="file"
+          >
             Image (png file only)
           </label>
           <input
@@ -121,46 +142,57 @@ export default function RecipePageUpload() {
             accept="image/*, video/*"
             onChange={handleFile}
             required
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+            className="w-full p-2 border shadow-sm rounded-md focus:outline-none focus:border-green-500"
           />
-          <label className="text-sm font-semibold" htmlFor="credit">
-            Country of Dish
+        </div>
+        <div className="flex space-x-[-1rem]">
+          <label
+            className=" w-[10rem] text-[1rem]  font-medium font-serif"
+            htmlFor="credit"
+          >
+            Country
           </label>
           <input
             type="text"
             id="credit"
             name="country"
+            placeholder="Enter Country of dish"
             onChange={handleChange}
             value={formData.country}
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+            className="w-full p-2 border rounded-md shadow-sm text-center focus:outline-none focus:border-green-500"
           />
-          <label className="text-sm font-semibold" htmlFor="credit">
-            Credit/Your Brand Name
+        </div>
+        <div className="flex space-x-[-1rem]">
+          <label
+            className="w-[10rem] text-[1rem] font-medium font-serif"
+            htmlFor="credit"
+          >
+            Credit
           </label>
           <input
             type="text"
             id="credit"
             name="credit"
+            placeholder="Brand Name"
             onChange={handleChange}
             value={formData.credit}
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+            className="w-full p-2 border shadow-sm rounded-md text-center focus:outline-none focus:border-green-500"
           />
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.7 }}
-            type="submit"
-            className="bg-[#2A3439] text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300"
-          >
-            Submit Recipe
-          </motion.button>
-        </form>
-        {upload && (
-          <Modal handleClose={close}>
-            <div>Successfully Uploaded</div>
-          </Modal>
-        )}
-      </div>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.7 }}
+          type="submit"
+          className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-400 focus:outline-none focus:ring focus:border-green-300"
+        >
+          Submit Recipe
+        </motion.button>
+      </form>
+      {upload && (
+        <Modal handleClose={close}>
+          <div>Successfully Uploaded</div>
+        </Modal>
+      )}
     </div>
   );
 }
