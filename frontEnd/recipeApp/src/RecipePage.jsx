@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import coverImage from "../src/assets/images/Picture10.jpg";
 import axios from "axios";
 import { signOutWithGoogle } from "./firebase";
@@ -10,9 +10,12 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 const RecipePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
+  const [submitRecipeContent, setSubmitRecipeContent] = useState();
+  const [checkInputEmpty, setCheckInputEmpty] = useState(true);
+  const ref = useRef();
   useEffect(() => {
     axios
-      .get("http://localhost:3500/recipe/recipes/query?n=7", {
+      .get("http://localhost:3500/recipe/recipes/query?n=4", {
         withCredentials: true,
       })
       .then((res) => setRecipes(res.data.data))
@@ -40,14 +43,17 @@ const RecipePage = () => {
   }
   function handleSearchChange(e) {
     e.preventDefault();
-    if (!e.target.value) {
-      setSearchResult("");
+    console.log("the ref value", ref.current.value);
+    if (e.target.value === "") {
+      setCheckInputEmpty(false);
     }
     if (e.target.value) {
+      setCheckInputEmpty(true);
+      setSubmitRecipeContent(e.target.value);
       setTimeout(() => {
         axios
           .get(
-            `http://localhost:3500/recipe/recipes/filterRecipes?similar=${e.target.value}`,
+            `http://localhost:3500/recipe/recipes/filterRecipes?similar=${e.target.value}&n=3`,
             {
               withCredentials: true,
             }
@@ -57,8 +63,19 @@ const RecipePage = () => {
       }, 1000);
     }
   }
+  function handleSubmitRecipe(e) {
+    e.preventDefault();
+    axios
+      .post(
+        `http://localhost:3500/recipe/recipes/getOne`,
+        { recipe: ref.current.value },
+        { withCredentials: true }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
   return (
-    <div className="container">
+    <div className="container ">
       <div className="max-w-[100vw] max-h-[110vh]">
         <div className="w-[98.4vw] h-[100vh] relative">
           <img
@@ -67,8 +84,8 @@ const RecipePage = () => {
             className="h-[100%] w-[100%] bg-cover z-0"
           />
         </div>
-        <div className="absolute left-0 top-0 w-[98.4vw] h-[100%] font-serif bg-black opacity-[.84] z-10 flex flex-col space-y-[4rem]">
-          <div className="w-[100%] h-[20vh] text-white text-3xl flex justify-between items-center justify-center">
+        <div className="absolute left-0 top-0 w-[98.4vw] h-[100%] font-serif bg-black bg-opacity-[.59] z-10 flex flex-col space-y-[4rem]">
+          <div className="w-[100%] h-[20vh] text-white text-3xl flex justify-between items-center ">
             <div className="text-[2rem] text-orange-500 ml-[3rem] italic">
               XONS
             </div>
@@ -91,25 +108,37 @@ const RecipePage = () => {
             </div>
           </div>
           <div className="text-[3.7rem]   whitespace-wrap text-pretty w-[100%] flex flex-row-reverse text-orange-800 font-serif">
-            <div className="w-[40rem] ml-[49rem] leading-[6rem] text-orange-500">
+            <div className="w-[40rem] ml-[49rem] leading-[6rem] text-white">
               Discover Amazing Recipes
             </div>
           </div>
           <div className="self-center">
-            <form>
+            <form className="">
               <input
                 type="text"
+                ref={ref}
                 placeholder="Enter Recipe"
                 onChange={handleSearchChange}
                 className="w-[33rem] h-[2.6rem] rounded-md text-center focus:outline-none text-[1.2rem] bg-white z-50"
               />
-              <button className="text-white ml-[3rem] h-[3rem] w-[6rem] bg-orange-500 rounded-md ">
+              <button
+                onClick={handleSubmitRecipe}
+                className="text-white ml-[3rem] h-[3rem] w-[6rem] bg-orange-500 rounded-md "
+              >
                 Search
               </button>
-              {searchResult &&
+              {checkInputEmpty &&
+                searchResult &&
                 searchResult.map((item) => {
                   return (
-                    <div className="bg-orange-500 text-3xl " key={1}>
+                    <div
+                      className="bg-orange-500 text-white text-3xl cursor-pointer mt-[.2rem] text-center rounded-sm border-2"
+                      key={Math.random()}
+                      onClick={() => {
+                        ref.current.value = item.title;
+                        setSearchResult([]);
+                      }}
+                    >
                       {item.title}
                     </div>
                   );
@@ -126,7 +155,7 @@ const RecipePage = () => {
           // console.log(recipe);
           return (
             <div
-              key={1}
+              key={Math.random()}
               className="bg-white rounded-md justify-center ml-[4.5rem] shadow-md w-[40vw] h-[20rem] mt-[-5rem] border-orange-500 border-[.3rem] border-spacing-36 flex "
             >
               <img

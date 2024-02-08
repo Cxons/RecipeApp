@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const recipeSchema = require("../Models/recipeModel");
 const recipeModel = require("../Models/recipeModel");
+const bcrypt = require("bcrypt-nodejs");
 
 const handleRecipeUploads = asyncHandler(async (req, res) => {
   const { title, imgUrl, ingredients, preparation, credit, country } = req.body;
@@ -31,8 +32,8 @@ const getRecipe = asyncHandler(async (req, res) => {
     .json({ message: "Request successful", data: requestedRecipes });
 });
 const getRecipeViaFilter = asyncHandler(async (req, res) => {
-  const { similar } = req.query;
-  console.log(similar);
+  const { similar, n } = req.query;
+  console.log(similar, n);
   const data = await recipeSchema.find();
   const match = data.filter((item) => item.title.startsWith(similar));
   console.log("the match", match[0].title);
@@ -40,6 +41,26 @@ const getRecipeViaFilter = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Recipe not found");
   }
+  const result = match.splice(0, n);
+  res.status(200).json({ message: "request gotten", data: result });
+});
+const getOneRecipe = asyncHandler(async (req, res) => {
+  const { recipe } = req.body;
+  console.log("the real recipe", req.body.recipe);
+  const data = await recipeSchema.find();
+  const match = data.filter((item) => {
+    return item.title === recipe;
+  });
+  console.log("the particular match", match);
+  if (match.length === 0) {
+    res.status(404);
+    throw new Error("Recipe not found");
+  }
   res.status(200).json({ message: "request gotten", data: match });
 });
-module.exports = { handleRecipeUploads, getRecipe, getRecipeViaFilter };
+module.exports = {
+  handleRecipeUploads,
+  getRecipe,
+  getRecipeViaFilter,
+  getOneRecipe,
+};

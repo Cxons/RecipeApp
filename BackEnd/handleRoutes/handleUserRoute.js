@@ -3,6 +3,7 @@ const userSchema = require("../Models/userModel");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt-nodejs");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const handleRegister = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -16,7 +17,7 @@ const handleRegister = asyncHandler(async (req, res) => {
     throw new Error("Email already exists");
   }
   const salt = bcrypt.genSaltSync(10);
-  const hashedPassword = bcrypt.hashSync(password, salt);
+  const hashedPassword = bcrypt.hashSync(password, process.env.SALT);
   const user = await userSchema.create({
     name: name,
     email: email,

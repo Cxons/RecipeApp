@@ -94,10 +94,9 @@ const changePassword = asyncHandler(async (req, res) => {
     res.status(403);
     throw new Error("User not allowed");
   }
-  const salt = bcrypt.genSaltSync(10);
   //used hashSync to avoid callback
-  const hashedPassword = bcrypt.hashSync(newPassword, salt);
-  console.log("new hashedPassword and salt", hashedPassword, salt);
+  const hashedPassword = bcrypt.hashSync(newPassword, process.env.SALT);
+  console.log("new hashedPassword and salt", hashedPassword, process.env.SALT);
   const setPassword = await userModel.findOneAndUpdate(
     { email: email },
     {
